@@ -9,6 +9,8 @@ import {
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import { ThemeProvider } from "@/components/ThemeProvider";
+import BottomNavigationBar from "@/components/BottomNavigationBar";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -25,27 +27,50 @@ export const links: Route.LinksFunction = () => [
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="vi" suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
       </head>
-      <body>
-        {children}
-        <ScrollRestoration />
-        <Scripts />
+      <body className="min-h-screen bg-background font-sans antialiased">
+        <ThemeProvider defaultTheme="system" storageKey="nhacool-theme">
+          <div className="relative flex min-h-screen flex-col">
+            <main className="flex-1 pb-16">{children}</main>
+            <BottomNavigationBar />
+          </div>
+          <ScrollRestoration />
+          <Scripts />
+        </ThemeProvider>
       </body>
     </html>
   );
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <div className="flex-grow">
+      {/* Header placeholder - will be added later */}
+      {/* <header className="bg-background border-b sticky top-0 z-50">
+        <div className="container mx-auto h-16 flex items-center justify-between px-4 md:px-6">
+          <div>Logo</div>
+          <div>Nav</div>
+        </div>
+      </header> */}
+      <Outlet />
+      {/* Footer placeholder - will be added later */}
+      {/* <footer className="bg-muted text-muted-foreground py-6">
+        <div className="container mx-auto text-center text-sm px-4 md:px-6">
+          <p>&copy; {new Date().getFullYear()} Nhacool. All rights reserved.</p>
+        </div>
+      </footer> */}
+    </div>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
+  console.log(error);
   let message = "Oops!";
   let details = "An unexpected error occurred.";
   let stack: string | undefined;

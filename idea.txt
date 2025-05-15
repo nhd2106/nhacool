@@ -1,0 +1,45 @@
+You are assisting in building a mobile-first web application designed to help users find houses or rooms for rent based on their selected location. The user interface is optimized for mobile devices but will run in the browser (web app only). The frontend is built using React + React Router v7 with Tailwind CSS and Shadcn UI components. It should prioritize responsiveness and user experience on small screens.
+
+The app must allow users to:
+- Input a location or use geolocation
+- See rental properties on an interactive map (Mapbox GL JS)
+- Browse listing cards that sync with map pins (selecting one highlights the other)
+- View filters (price, type, amenities) via a modal
+- Open a detail page with full property information
+- Save favorite rooms (initially local or later with user accounts)
+- Log in via email or Google (Supabase Auth)
+- For landlords: add new room listings with images and details
+
+The backend uses Supabase:
+- PostgreSQL database with a `rooms` table including fields like title, price, lat/lng, address, amenities, and images
+- Auth system (email + OAuth)
+- Supabase Storage for images
+- PostGIS extension (optional for future “nearby” queries)
+
+The app uses React Router v7 for routing with nested layouts and optional SSR (Vite SSR or Remix-like if needed later).
+
+Deployment will be on Vercel or Netlify for the frontend, and Supabase handles backend/API needs.
+
+Maps will use Mapbox GL JS with clustering and pinch-to-zoom for mobile UX.
+
+Performance, simplicity, and developer productivity are key. The system should be modular, and scalable, and follow a clear folder structure, such as:
+
+- `/app` for routes
+- `/components` for shared UI
+- `/lib` for Supabase, Mapbox, and helpers
+- `/store` for global state (Zustand)
+- `/public` and `/styles` for assets
+
+The initial focus is to build a smooth MVP that:
+1. Works well on mobile browsers
+2. Allows searching + viewing rooms on a map
+3. Supports listing details + basic filtering
+4. Uses Supabase for fetching real data
+
+Everything else (chat, push notifications, landlord dashboards) will come later.
+
+You should always prioritize:
+- Mobile-first layout
+- Map + list interaction
+- Clean, accessible UI using Tailwind + Shadcn UI
+- Cost-effective services suitable for solo devs
